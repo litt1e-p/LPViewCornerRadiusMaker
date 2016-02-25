@@ -33,6 +33,11 @@
     v3.backgroundColor = [UIColor purpleColor];
     [v3 makeCornerRadiusWithRadius:8.f positions:@[@(LPCornerRadiusPositionBottomLeft), @(LPCornerRadiusPositionTopLeft)]];
     [self.view addSubview:v3];
+    
+    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(150, 500, 100, 100)];
+    iv.image = [UIImage imageNamed:@"test"];
+    [iv makeCornerRadiusWithRadius:10.f positions:@[@(LPCornerRadiusPositionTopLeft),@(LPCornerRadiusPositionBottomLeft),@(LPCornerRadiusPositionTopRight), @(LPCornerRadiusPositionBottomRight)]];
+    [self.view addSubview:iv];
 }
 
 @end

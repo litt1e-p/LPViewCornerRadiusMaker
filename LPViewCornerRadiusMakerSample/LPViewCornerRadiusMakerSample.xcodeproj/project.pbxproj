@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04DCCF601C7EA5C900E8636F /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = 04DCCF5F1C7EA5C900E8636F /* test.png */; };
 		3C50C5121C7D82DD00C1872A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C50C5111C7D82DD00C1872A /* main.m */; };
 		3C50C5151C7D82DD00C1872A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C50C5141C7D82DD00C1872A /* AppDelegate.m */; };
 		3C50C5181C7D82DD00C1872A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C50C5171C7D82DD00C1872A /* ViewController.m */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04DCCF5F1C7EA5C900E8636F /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 		3C50C50D1C7D82DD00C1872A /* LPViewCornerRadiusMakerSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LPViewCornerRadiusMakerSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C50C5111C7D82DD00C1872A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3C50C5131C7D82DD00C1872A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 		3C50C5101C7D82DD00C1872A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				04DCCF5F1C7EA5C900E8636F /* test.png */,
 				3C50C5111C7D82DD00C1872A /* main.m */,
 			);
 			path = "Supporting Files";
@@ -152,6 +155,7 @@
 				3C50C5201C7D82DD00C1872A /* LaunchScreen.storyboard in Resources */,
 				3C50C51D1C7D82DD00C1872A /* Assets.xcassets in Resources */,
 				3C50C51B1C7D82DD00C1872A /* Main.storyboard in Resources */,
+				04DCCF601C7EA5C900E8636F /* test.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
