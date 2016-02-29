@@ -8,59 +8,55 @@
 
 #import "UIView+CornerRadius.h"
 
-#define kPositionAll @[@(LPCornerRadiusPositionTopLeft), @(LPCornerRadiusPositionTopRight), @(LPCornerRadiusPositionBottomLeft), @(LPCornerRadiusPositionBottomRight)]
-
 #define kLPCornerDefaultRadius 3.f
 
 @implementation UIView (CornerRadius)
 
 - (void)makeCornerRadius
 {
-    [self createCornerRadiusWithRadius:kLPCornerDefaultRadius positions:[kPositionAll copy]];
+    [self createCornerRadiusWithRadius:kLPCornerDefaultRadius rectCorner:UIRectCornerAllCorners];
 }
 
-- (void)makeCornerRadiusWithRadius:(CGFloat)radius position:(LPCornerRadiusPosition)position
+- (void)makeCornerRadiusWithRadius:(CGFloat)radius rectCorner:(UIRectCorner)rectCorner
 {
-    NSArray *positions = [NSArray array];
-    if (position == LPCornerRadiusPositionAll) {
-        positions = [kPositionAll copy];
-    } else {
-        positions = @[@(position)];
-    }
-    [self createCornerRadiusWithRadius:radius positions:positions];
+    [self createCornerRadiusWithRadius:radius rectCorner:rectCorner];
 }
 
-- (void)makeCornerRadiusWithRadius:(CGFloat)radius positions:(NSArray *)positions
+- (void)createCornerRadiusWithRadius:(CGFloat)radius rectCorner:(UIRectCorner)rectCorner
 {
-    NSMutableDictionary *directionDict = [[NSMutableDictionary alloc] init];
-    for (NSNumber *pos in positions) {
-        if ([kPositionAll containsObject:pos]) {
-            [directionDict setObject:@1 forKey:pos];
+    if ([self isKindOfClass:[UIImageView class]]) {
+        UIImageView *selfIv = (UIImageView *)self;
+        if (selfIv.image) {
+            selfIv.image = [selfIv.image imageCornerWithRadius:radius size:selfIv.bounds.size rectCorner:rectCorner];
         }
-    }
-    if ([directionDict allKeys].count > 0) {
-        [self createCornerRadiusWithRadius:radius positions:[directionDict allKeys]];
+    } else {
+        UIBezierPath *maskPath  = [UIBezierPath bezierPathWithRoundedRect:self.bounds
+                                                        byRoundingCorners:rectCorner
+                                                              cornerRadii:CGSizeMake(radius, radius)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
+        maskLayer.frame         = self.bounds;
+        maskLayer.path          = maskPath.CGPath;
+        self.layer.mask         = maskLayer;
     }
 }
 
-- (UIView *)createCornerRadiusWithRadius:(CGFloat)radius positions:(NSArray *)positions
+@end
+
+@implementation UIImage (CornerRadius)
+
+- (UIImage *)imageCornerWithRadius:(CGFloat)radius size:(CGSize)size rectCorner:(UIRectCorner)rectCorner
 {
-    __block UIRectCorner corner = 0;
-    if (positions.count > 0) {
-        [positions enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            LPCornerRadiusPosition pos = [obj integerValue];
-            UIRectCorner cor           = (UIRectCorner)pos;
-            corner                     = corner | cor;
-        }];
-    }
-    UIBezierPath *maskPath  = [UIBezierPath bezierPathWithRoundedRect:self.bounds
-                                     byRoundingCorners:corner
-                                           cornerRadii:CGSizeMake(radius, radius)];
-    CAShapeLayer *maskLayer = [[CAShapeLayer alloc] init];
-    maskLayer.frame         = self.bounds;
-    maskLayer.path          = maskPath.CGPath;
-    self.layer.mask         = maskLayer;
-    return self;
+    CGRect rect = (CGRect){{0, 0}, size};
+    UIGraphicsBeginImageContextWithOptions(rect.size, false, [UIScreen mainScreen].scale);
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:rect byRoundingCorners:rectCorner cornerRadii:CGSizeMake(radius, radius)];
+    
+    CGContextAddPath(UIGraphicsGetCurrentContext(), path.CGPath);
+    CGContextClip(UIGraphicsGetCurrentContext());
+    [self drawInRect:rect];
+    CGContextDrawPath(UIGraphicsGetCurrentContext(), kCGPathFillStroke);
+    UIImage *output = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return output;
 }
 
 @end

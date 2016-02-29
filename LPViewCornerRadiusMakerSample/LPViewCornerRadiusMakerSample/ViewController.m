@@ -26,17 +26,17 @@
     
     UIView *v2 = [[UIView alloc] initWithFrame:CGRectMake(150, 180, 100, 100)];
     v2.backgroundColor = [UIColor brownColor];
-    [v2 makeCornerRadiusWithRadius:5.f position:LPCornerRadiusPositionTopLeft];
+    [v2 makeCornerRadiusWithRadius:5.f rectCorner:UIRectCornerTopLeft];
     [self.view addSubview:v2];
     
     UIView *v3 = [[UIView alloc] initWithFrame:CGRectMake(150, 300, 100, 170)];
     v3.backgroundColor = [UIColor purpleColor];
-    [v3 makeCornerRadiusWithRadius:8.f positions:@[@(LPCornerRadiusPositionBottomLeft), @(LPCornerRadiusPositionTopLeft)]];
+    [v3 makeCornerRadiusWithRadius:8.f rectCorner:UIRectCornerTopLeft | UIRectCornerBottomLeft];
     [self.view addSubview:v3];
     
     UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(150, 500, 100, 100)];
     iv.image = [UIImage imageNamed:@"test"];
-    [iv makeCornerRadiusWithRadius:10.f positions:@[@(LPCornerRadiusPositionTopLeft),@(LPCornerRadiusPositionBottomLeft),@(LPCornerRadiusPositionTopRight), @(LPCornerRadiusPositionBottomRight)]];
+    [iv makeCornerRadiusWithRadius:5.f rectCorner:UIRectCornerAllCorners];
     [self.view addSubview:iv];
 }
 
