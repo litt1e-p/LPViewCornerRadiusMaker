@@ -1,5 +1,5 @@
 # LPViewCornerRadiusMaker
-UIView extension of making UIView cornerRadius
+UIView extension for making UIView cornerRadius
 
 # Install
 
